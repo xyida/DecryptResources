@@ -112,7 +112,7 @@ public class DecryptPic {
 			String fileFormat = path.substring(path.length() - 4);
 			if (fileFormat.equals(".jpg") || fileFormat.equals(".png")||fileFormat.equals(".JPG")||fileFormat.equals(".PNG")) {
 				DecryptPic dp = new DecryptPic(path);
-
+				
 				if (dp.doDecryption()) {
 					System.out.println("加密/解密 成功：" + path);
 
@@ -130,6 +130,8 @@ public class DecryptPic {
 			} else {
 				Collection<File> fileCollection = FileUtils.listFiles(new File(
 						filePath[1]), FileExts, true);
+				int success=0;
+				int fail=0;
 				for (Iterator<File> it = fileCollection.iterator(); it
 						.hasNext();) {
 					String currFilePath = ((File) it.next()).toString();
@@ -137,11 +139,13 @@ public class DecryptPic {
 
 					if (dp.doDecryption()) {
 						System.out.println("加密/解密 成功：" + currFilePath);
+						success++;
 					} else {
 						System.out.println("加密/解密 失败：" + currFilePath);
+						fail++;
 					}
 				}
-
+				System.out.println("加密(解密)成功："+success+"个,失败："+fail+"个");
 				System.out.print("加密(解密)完成!请检查结果，按回车键退出...");
 
 				try {
